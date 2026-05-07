@@ -306,11 +306,11 @@ function setupJournalHeader() {
 }
 
 function doMeValido() {
-  logAction({ need: 'me_valido', card: 'elección', action: 'me valido igual' });
-  document.getElementById('celebration-emoji').textContent = '🌿';
-  document.getElementById('celebration-title').textContent = 'Hoy también cuenta.';
+  logAction({ need: 'pausa', card: 'elección', action: 'eligió pausa' });
+  document.getElementById('celebration-emoji').textContent = '🌬';
+  document.getElementById('celebration-title').textContent = 'Hoy, pausa.';
   document.getElementById('celebration-text').textContent =
-    'No hace falta hacer la bitácora para que el día valga.\nEstuviste acá. Eso alcanza.';
+    'No hace falta hacer nada para que el día valga. Estuviste acá. Eso alcanza.';
   document.getElementById('celebration').classList.add('visible');
 }
 

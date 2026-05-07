@@ -411,18 +411,7 @@ body {
 .need-btn.orden   { background: linear-gradient(150deg, #7A9468 0%, #4E6B41 100%); }
 .need-btn.refugio { background: linear-gradient(150deg, #B07070 0%, #7A4848 100%); }
 .need-btn.energia { background: linear-gradient(150deg, #E07A30 0%, #B34E10 100%); }
-.need-btn.me-valido {
-  background: var(--crema);
-  color: var(--negro);
-  border: 1.5px solid rgba(0,0,0,0.1);
-  font-size: 20px;
-  color: var(--gris-suave);
-}
-.need-btn.me-valido::before { opacity: 0; }
-.need-btn.me-valido::after {
-  background: rgba(0,0,0,0.04);
-  top: -20px; right: -20px;
-}
+.need-btn.pausa { background: linear-gradient(150deg, #B59A78 0%, #7A6248 100%); }
 
 /* ── JOURNEY CARDS ── */
 #screen-journey {
