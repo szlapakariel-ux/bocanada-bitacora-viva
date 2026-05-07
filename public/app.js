@@ -308,7 +308,7 @@ function setupJournalHeader() {
 function doMeValido() {
   logAction({ need: 'pausa', card: 'elección', action: 'eligió pausa' });
   document.getElementById('celebration-emoji').textContent = '🌬';
-  document.getElementById('celebration-title').textContent = 'Hoy, pausa.';
+  document.getElementById('celebration-title').textContent = 'Hoy, solo estar.';
   document.getElementById('celebration-text').textContent =
     'No hace falta hacer nada para que el día valga. Estuviste acá. Eso alcanza.';
   document.getElementById('celebration').classList.add('visible');
