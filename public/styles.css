@@ -17,16 +17,19 @@
 
 html, body {
   height: 100%;
+  height: -webkit-fill-available;
   font-family: 'Georgia', 'Times New Roman', serif;
   background: var(--crema);
   color: var(--negro);
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 /* ── SCREENS ── */
@@ -34,6 +37,7 @@ body {
   display: none;
   flex-direction: column;
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
