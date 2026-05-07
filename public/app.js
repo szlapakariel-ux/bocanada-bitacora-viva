@@ -305,6 +305,15 @@ function setupJournalHeader() {
   document.getElementById('journal-title').textContent = titles[Math.floor(Math.random() * titles.length)];
 }
 
+function doMeValido() {
+  logAction({ need: 'me_valido', card: 'elección', action: 'me valido igual' });
+  document.getElementById('celebration-emoji').textContent = '🌿';
+  document.getElementById('celebration-title').textContent = 'Hoy también cuenta.';
+  document.getElementById('celebration-text').textContent =
+    'No hace falta hacer la bitácora para que el día valga.\nEstuviste acá. Eso alcanza.';
+  document.getElementById('celebration').classList.add('visible');
+}
+
 async function startJourney(need) {
   state.currentNeed = need;
   state.currentCardIndex = 0;
