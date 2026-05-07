@@ -1,0 +1,19 @@
+{
+  "participants": [
+    { "name": "Ana", "days": [1,2,3,4,5,6,7,8,9,10,11,12,13,14], "lastActive": "2026-05-07", "needs": ["calma","calma","foco","orden","calma","refugio","calma","foco","calma","orden","energía","calma","foco","calma"] },
+    { "name": "Vero", "days": [1,2,3,5,6,8,9,10,12,14], "lastActive": "2026-05-06", "needs": ["calma","refugio","foco","calma","energía","foco","calma","orden","foco","calma"] },
+    { "name": "Lucía", "days": [1,2,4,5,7,8,10,11,13,14], "lastActive": "2026-05-07", "needs": ["orden","orden","foco","orden","calma","orden","foco","orden","calma","orden"] },
+    { "name": "Mar", "days": [1,3,4,6,9,11], "lastActive": "2026-05-03", "needs": ["refugio","refugio","calma","refugio","calma","refugio"] },
+    { "name": "Sole", "days": [1,2,3,4,5,6,7,8,9,10,11,12,13,14], "lastActive": "2026-05-07", "needs": ["energía","foco","energía","calma","energía","foco","energía","calma","energía","foco","energía","energía","foco","energía"] },
+    { "name": "Carla", "days": [], "lastActive": null, "needs": [] }
+  ],
+  "logs": [
+    { "ts": "2026-05-07T09:14:22Z", "name": "Ana", "need": "calma", "card": "Respirar", "action": "Lo hice", "registro": "Hoy me doy cuenta de que necesito soltar el control de todo.", "shared": true },
+    { "ts": "2026-05-07T10:02:11Z", "name": "Sole", "need": "energía", "card": "Sacudir el cuerpo", "action": "Lo hice", "registro": "Me sorprendió lo bien que me sentí después de moverme sola.", "shared": false },
+    { "ts": "2026-05-07T11:33:45Z", "name": "Lucía", "need": "orden", "card": "Elegir una sola cosa", "action": "Me sirvió", "registro": "Elegí ordenar el escritorio. Tardé 5 minutos. Me cambió el día.", "shared": true },
+    { "ts": "2026-05-06T20:15:03Z", "name": "Vero", "need": "calma", "card": "Aflojar hombros", "action": "Lo hice", "registro": "", "shared": false },
+    { "ts": "2026-05-06T08:44:12Z", "name": "Mar", "need": "refugio", "card": "Buscar un lugar amable", "action": "Lo hice", "registro": "Mi lugar amable hoy fue el baño con la puerta cerrada.", "shared": false },
+    { "ts": "2026-05-05T19:22:30Z", "name": "Ana", "need": "foco", "card": "Cerrar una distracción", "action": "Me sirvió", "registro": "Apagué Instagram. Pude leer media hora.", "shared": true },
+    { "ts": "2026-05-05T09:10:00Z", "name": "Sole", "need": "energía", "card": "Poner una canción", "action": "Lo hice", "registro": "", "shared": false }
+  ]
+}

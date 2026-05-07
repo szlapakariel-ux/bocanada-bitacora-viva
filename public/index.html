@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#5A3E6B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>BOCANADA — Bitácora viva</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- PANTALLA: BIENVENIDA -->
+<section id="screen-welcome" class="screen active">
+  <div class="welcome-bg"></div>
+  <div class="welcome-top">
+    <div class="welcome-tag">BOCANADA · Bitácora viva</div>
+    <h1 class="welcome-title">
+      Tu<br><em>bocanada</em><br>de hoy
+    </h1>
+    <p class="welcome-subtitle">Volvé a vos, una cosa a la vez.</p>
+    <p class="welcome-note-secondary">No hace falta hacerlo perfecto.</p>
+  </div>
+  <div class="welcome-bottom">
+    <div class="demo-notice">
+      <strong>Demo conceptual</strong>
+      Los contenidos reales los diseñan Pía y Clara. Esta herramienta muestra cómo sostener la experiencia entre encuentros.
+    </div>
+    <button class="btn-primary" onclick="showScreen('login')">Entrar a mi bitácora</button>
+    <button class="btn-secondary" onclick="showScreen('about')">¿Qué muestra esta demo?</button>
+  </div>
+</section>
+
+<!-- PANTALLA: LOGIN -->
+<section id="screen-login" class="screen">
+  <div class="login-header">
+    <button class="back-btn" onclick="showScreen('welcome')">← Volver</button>
+    <h2>¿Quién sos?</h2>
+    <p>Una pausa en medio del caos.</p>
+  </div>
+  <div class="login-body">
+    <div class="form-group">
+      <label>Tu nombre</label>
+      <input type="text" id="login-name" placeholder="Ej: Ana" autocomplete="off" autocapitalize="words" />
+    </div>
+    <div class="form-group">
+      <label>Entrás como</label>
+      <div class="role-selector">
+        <button class="role-btn selected" id="role-participante" onclick="selectRole('participante')">Participante</button>
+        <button class="role-btn" id="role-facilitadora" onclick="selectRole('facilitadora')">Facilitadora</button>
+      </div>
+      <div class="pass-field" id="pass-field">
+        <input type="password" id="login-pass" placeholder="Clave de acceso" />
+        <p class="pass-hint">Solo para Pía y Clara · clave: bocanada21</p>
+      </div>
+      <div class="error-msg" id="login-error">Clave incorrecta. Intentá de nuevo.</div>
+    </div>
+    <button class="btn-primary" style="background:var(--violeta);margin-top:8px" onclick="doLogin()">
+      Entrar →
+    </button>
+  </div>
+</section>
+
+<!-- PANTALLA: BITÁCORA — ELEGIR NECESIDAD -->
+<section id="screen-journal" class="screen">
+  <div class="journal-header">
+    <div class="journal-greeting" id="journal-greeting">DÍA 1</div>
+    <h2 id="journal-title">Bajá un cambio.<br>Respirás. Seguimos.</h2>
+    <p>Esto no es tarea. Es una forma de volver a vos.</p>
+  </div>
+  <div class="journal-body">
+    <p class="need-question">¿Qué necesitás hoy?</p>
+    <div class="need-grid">
+      <button class="need-btn calma" onclick="startJourney('calma')">
+        <span class="need-emoji">🌊</span>
+        Calma
+      </button>
+      <button class="need-btn foco" onclick="startJourney('foco')">
+        <span class="need-emoji">🎯</span>
+        Foco
+      </button>
+      <button class="need-btn orden" onclick="startJourney('orden')">
+        <span class="need-emoji">🌿</span>
+        Orden
+      </button>
+      <button class="need-btn refugio" onclick="startJourney('refugio')">
+        <span class="need-emoji">🏠</span>
+        Refugio
+      </button>
+      <button class="need-btn energia" onclick="startJourney('energia')">
+        <span class="need-emoji">⚡</span>
+        Energía
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- PANTALLA: RECORRIDO DE TARJETAS -->
+<section id="screen-journey" class="screen">
+  <div class="journey-header">
+    <button class="back-btn" style="color:var(--gris-suave);padding-bottom:12px" onclick="showScreen('journal')">← Cambiar elección</button>
+    <div class="need-badge" id="need-badge">Calma</div>
+    <h2 id="journey-title">Una pausa real</h2>
+    <p id="journey-subtitle">5 estaciones · tomátelo a tu tiempo</p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="cards-container" id="cards-container">
+    <!-- Se generan dinámicamente -->
+  </div>
+  <div class="card-nav">
+    <button class="nav-btn nav-prev" id="nav-prev" onclick="prevCard()">←</button>
+    <button class="nav-btn nav-next" id="nav-next" onclick="nextCard()">Siguiente →</button>
+  </div>
+</section>
+
+<!-- PANTALLA: REGISTRO FINAL -->
+<section id="screen-registro" class="screen">
+  <div class="registro-header">
+    <div class="tag">Registro del día</div>
+    <h2>Dejá una huella de hoy</h2>
+    <p>No importa si es una palabra o un párrafo. Es tuyo.</p>
+  </div>
+  <div class="registro-body">
+    <div class="registro-summary" id="registro-summary"></div>
+    <textarea class="registro-textarea" id="registro-text" placeholder="Hoy me doy cuenta de…" rows="4"></textarea>
+    <div class="registro-actions">
+      <button class="btn-whatsapp" onclick="shareWhatsApp()">
+        <span style="font-size:20px">💬</span>
+        Compartir en WhatsApp
+      </button>
+      <button class="btn-guardar" onclick="saveRegistro()">Guardar y cerrar</button>
+    </div>
+  </div>
+</section>
+
+<!-- PANTALLA: PANEL FACILITADORAS -->
+<section id="screen-panel" class="screen">
+  <div class="panel-header">
+    <div class="tag">Panel de acompañamiento</div>
+    <h2>Pulso del proceso</h2>
+    <p id="panel-subtitle">Señales suaves para acompañar mejor</p>
+  </div>
+  <div class="panel-body" id="panel-body">
+    <div style="text-align:center;padding:40px;opacity:0.4;font-family:Arial,sans-serif;font-size:14px">Cargando señales del grupo…</div>
+  </div>
+</section>
+
+<!-- PANTALLA: ACERCA / DEMO INFO -->
+<section id="screen-about" class="screen">
+  <div class="about-header">
+    <h2>Qué muestra esta demo</h2>
+    <p>Una herramienta que sostiene, no que reemplaza.</p>
+  </div>
+  <div class="about-body">
+
+    <div class="about-section">
+      <div class="about-text-section">
+        <h3>Lo que ves aquí</h3>
+        <p>Esta demo no define el contenido de Bocanada. Muestra cómo una herramienta digital puede sostener la experiencia entre encuentros, ordenar el acompañamiento y devolver señales suaves para que las facilitadoras ajusten el próximo encuentro.</p>
+      </div>
+      <div class="about-text-section">
+        <h3>Lo que aporta cada parte</h3>
+        <p>Pía y Clara diseñan el contenido, el tono y las prácticas. Yo aporto el soporte tecnológico, la experiencia interactiva y la capa creativa. La herramienta acompaña, no reemplaza. La conversación sigue en WhatsApp y en los encuentros.</p>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <div class="about-section-title">Pía y Clara acompañan</div>
+      <div class="facilitator-cards">
+        <div class="facilitator-card">
+          <div class="facilitator-avatar pia">🌺</div>
+          <div class="facilitator-info">
+            <h3>Pía Numer</h3>
+            <p>"Bajá de la mente al cuerpo. Sacudite un poco. No hace falta entenderlo todo."</p>
+          </div>
+        </div>
+        <div class="facilitator-card">
+          <div class="facilitator-avatar clara">💧</div>
+          <div class="facilitator-info">
+            <h3>Clara Detang</h3>
+            <p>"Elegí una pregunta simple: ¿qué conversación interna estás alimentando hoy?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <div class="about-section-title">Tipos de contenido que diseñan ellas</div>
+      <div class="content-types">
+        <span class="content-type">🌬 Frases de anclaje</span>
+        <span class="content-type">🎵 Canciones</span>
+        <span class="content-type">🧘 Meditaciones</span>
+        <span class="content-type">💃 Acciones corporales</span>
+        <span class="content-type">💬 Preguntas de integración</span>
+        <span class="content-type">📸 Propuestas de registro</span>
+        <span class="content-type">🌿 Hábitos mínimos</span>
+      </div>
+    </div>
+
+    <button class="about-back-btn" onclick="showScreen('welcome')">← Volver al inicio</button>
+  </div>
+</section>
+
+<!-- OVERLAY: CELEBRACIÓN -->
+<div class="celebration-overlay" id="celebration">
+  <div class="celebration-emoji" id="celebration-emoji">✨</div>
+  <h2 class="celebration-title" id="celebration-title">¡Bien hecho!</h2>
+  <p class="celebration-text" id="celebration-text">Guardaste tu huella de hoy.</p>
+  <button class="celebration-close" onclick="closeCelebration()">Seguir →</button>
+</div>
+
+<!-- OVERLAY: LOADING -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
