@@ -16,9 +16,10 @@ export async function sembrar() {
   await prisma.recurso.deleteMany();
   await prisma.formador.deleteMany();
 
+  // Cliente demo de la plataforma (RETONS es un cliente, no la plataforma)
   const formador = await prisma.formador.create({
     data: {
-      nombre: "Formador Demo",
+      nombre: "RETONS (cliente demo)",
       email: "demo@retons.com",
       passwordHash: await bcrypt.hash("demo1234", 10),
     },

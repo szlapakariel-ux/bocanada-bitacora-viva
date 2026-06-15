@@ -32,7 +32,7 @@ export default function Entrar() {
     <div className="app center-screen">
       <form className="pad fade-in" onSubmit={entrar}>
         <Link to="/" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
-          RETO<b>N</b>S
+          Bitácora <b>Viva</b>
         </Link>
         <h1 style={{ marginTop: 24 }}>Entrá a tu recorrido</h1>
         <p className="lead" style={{ marginBottom: 28 }}>

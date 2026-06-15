@@ -10,7 +10,7 @@ export function aplicarMarca(marca) {
     root.setProperty("--sans", `"${marca.tipografia}", -apple-system, sans-serif`);
 }
 
-// Restaura los tokens de marca RETONS por defecto (al salir del recorrido).
+// Restaura los tokens default de la plataforma (al salir del recorrido).
 export function restaurarMarca() {
   const root = document.documentElement.style;
   ["--azul", "--verde", "--rojo", "--sans"].forEach((v) => root.removeProperty(v));

@@ -22,7 +22,7 @@ export default function Formador() {
   return (
     <div className="app app-wide">
       <div className="topbar">
-        <span className="brand">RETO<b>N</b>S · Formador</span>
+        <span className="brand">Bitácora <b>Viva</b> · Formador</span>
         <button className="btn btn-sm btn-ghost" style={{ width: "auto" }} onClick={salir}>Salir</button>
       </div>
 

@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="app center-screen">
       <div className="pad fade-in">
-        <p className="eyebrow">RETONS · Reingeniería del Pensamiento</p>
+        <p className="eyebrow">Bitácora Viva · Acompañamiento entre encuentros</p>
         <h1 style={{ fontSize: 34 }}>Una pausa<br />en medio del caos.</h1>
         <p className="lead" style={{ marginBottom: 36 }}>
           Acompañamiento entre encuentros. Pequeñas estaciones diarias que

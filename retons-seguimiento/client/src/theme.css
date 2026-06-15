@@ -1,4 +1,5 @@
-/* ── Tokens de marca RETONS ───────────────────────────────────── */
+/* ── Tokens de la plataforma (Bitácora Viva) — default neutro ──── */
+/* Cada cliente puede sobrescribir estos colores por programa (ver marca.js). */
 :root {
   --azul: #1b56d6;
   --azul-suave: #eef3fc;

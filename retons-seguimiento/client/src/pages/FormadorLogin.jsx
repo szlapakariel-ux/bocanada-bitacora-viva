@@ -30,7 +30,7 @@ export default function FormadorLogin() {
     <div className="app center-screen">
       <form className="pad fade-in" onSubmit={enviar}>
         <Link to="/" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
-          RETO<b>N</b>S
+          Bitácora <b>Viva</b>
         </Link>
         <h1 style={{ marginTop: 24 }}>{modo === "login" ? "Panel del formador" : "Crear cuenta"}</h1>
         <p className="lead" style={{ marginBottom: 28 }}>El pulso del proceso, en un solo lugar.</p>

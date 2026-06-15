@@ -1,6 +1,6 @@
 {
-  "name": "RETONS Seguimiento",
-  "short_name": "RETONS",
+  "name": "Bitácora Viva",
+  "short_name": "Bitácora",
   "description": "Acompañamiento entre encuentros — una pausa en medio del caos.",
   "start_url": "/",
   "display": "standalone",

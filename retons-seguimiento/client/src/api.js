@@ -1,4 +1,4 @@
-// Cliente HTTP minimalista para la API de RETONS Seguimiento.
+// Cliente HTTP minimalista para la API de Bitácora Viva.
 
 const tokenKey = "retons_token";
 export const getToken = () => localStorage.getItem(tokenKey);

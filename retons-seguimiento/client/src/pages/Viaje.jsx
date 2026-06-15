@@ -31,7 +31,7 @@ export default function Viaje() {
           <img src={marca.logoData} alt="logo" style={{ height: 28, maxWidth: 140, objectFit: "contain" }} />
         ) : (
           <Link to="/" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
-            RETO<b>N</b>S
+            Bitácora <b>Viva</b>
           </Link>
         )}
         <span className="pill">{hechos}/{conContenido.length} días</span>

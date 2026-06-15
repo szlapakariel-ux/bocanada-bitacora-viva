@@ -1,10 +1,13 @@
-# RETONS Seguimiento
+# Bitácora Viva
 
-Plataforma de acompañamiento entre encuentros: recorridos diarios para el
-participante y un panel con el **pulso del proceso** para el formador.
+Plataforma **multi-cliente** de acompañamiento entre encuentros: recorridos
+diarios para el participante y un panel con el **pulso del proceso** para el
+formador.
 
-> Proyecto **nuevo e independiente**. Bocanada fue solo inspiración metodológica;
-> acá el código, los textos y el diseño son propios y aplican el manual de marca RETONS.
+> Proyecto **nuevo e independiente** (Bocanada fue solo inspiración
+> metodológica). La plataforma se llama **Bitácora Viva**; **RETONS es un cliente**
+> dentro de ella (cuenta de formador con su propia marca por programa). Cada
+> cliente nuevo es otra cuenta, con su logo y colores, sobre la misma infra.
 
 ---
 
