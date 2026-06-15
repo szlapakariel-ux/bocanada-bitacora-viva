@@ -1,0 +1,17 @@
+{
+  "name": "RETONS Seguimiento",
+  "short_name": "RETONS",
+  "description": "Acompañamiento entre encuentros — una pausa en medio del caos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#13152A",
+  "theme_color": "#13152A",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

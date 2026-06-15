@@ -1,0 +1,271 @@
+/* ── Tokens de marca RETONS ───────────────────────────────────── */
+:root {
+  --azul: #1b56d6;
+  --azul-suave: #eef3fc;
+  --verde: #1a7a3c;
+  --verde-suave: #edfaf3;
+  --rojo: #d63030;
+  --rojo-suave: #fef0ef;
+  --navy: #13152a;
+  --tinta: #13152a;
+  --muted: #6a6f8e;
+  --borde: #e6e8f2;
+  --surface: #f5f6fc;
+  --blanco: #ffffff;
+
+  --sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --r: 18px;
+  --r-sm: 12px;
+  --sombra: 0 6px 24px rgba(19, 21, 42, 0.06);
+  --sombra-fuerte: 0 12px 40px rgba(19, 21, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--tinta);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+input,
+textarea {
+  font-family: var(--sans);
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+/* ── Layout mobile-first: lienzo centrado ─────────────────────── */
+.app {
+  max-width: 460px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--blanco);
+}
+
+.app-wide {
+  max-width: 960px;
+}
+
+.pad {
+  padding: 28px 24px;
+}
+
+.grow {
+  flex: 1;
+}
+
+.center-screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Tipografía ───────────────────────────────────────────────── */
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4em;
+  line-height: 1.15;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 22px;
+}
+h3 {
+  font-size: 17px;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.muted {
+  color: var(--muted);
+}
+.lead {
+  font-size: 17px;
+  color: var(--muted);
+}
+
+/* ── Botones ──────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  border-radius: var(--r);
+  background: var(--azul);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px 20px;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn:disabled {
+  opacity: 0.4;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--azul);
+  border: 1.5px solid var(--borde);
+}
+.btn-sm {
+  width: auto;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: var(--r-sm);
+}
+.btn-danger {
+  background: var(--rojo);
+}
+
+/* ── Inputs ───────────────────────────────────────────────────── */
+.field {
+  margin-bottom: 18px;
+}
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.input,
+.textarea {
+  width: 100%;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  font-size: 16px;
+  background: var(--blanco);
+  color: var(--tinta);
+  transition: border-color 0.15s ease;
+}
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+}
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* ── Tarjetas ─────────────────────────────────────────────────── */
+.card {
+  background: var(--blanco);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--r);
+  padding: 20px;
+}
+.card-soft {
+  background: var(--surface);
+  border: none;
+}
+
+/* ── Topbar ───────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--borde);
+}
+.brand {
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 15px;
+}
+.brand b {
+  color: var(--azul);
+}
+
+/* ── Pills / tags ─────────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--azul-suave);
+  color: var(--azul);
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.between {
+  justify-content: space-between;
+}
+.stack > * + * {
+  margin-top: 12px;
+}
+
+.fade-in {
+  animation: fade 0.4s ease both;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.error-msg {
+  color: var(--rojo);
+  background: var(--rojo-suave);
+  padding: 12px 16px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
