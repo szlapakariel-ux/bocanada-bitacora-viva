@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import path from "node:path";
+import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 import { prisma } from "./db.js";
@@ -34,16 +35,44 @@ const clientDist = path.resolve(__dirname, "../../client/dist");
 app.use(express.static(clientDist));
 app.get("*", (_req, res) => res.sendFile(path.join(clientDist, "index.html")));
 
-// Siembra automática de datos demo si la base está vacía (útil en el deploy)
-async function inicio() {
+// Crea/sincroniza las tablas en el volumen (prisma db push) en segundo plano.
+function pushDB() {
+  return new Promise((resolve) => {
+    const p = spawn("npx", ["prisma", "db", "push", "--skip-generate"], {
+      stdio: "inherit",
+      shell: true,
+    });
+    p.on("close", (code) => {
+      if (code !== 0) console.warn("prisma db push terminó con código", code);
+      resolve();
+    });
+    p.on("error", (e) => {
+      console.warn("No se pudo correr prisma db push:", e.message);
+      resolve();
+    });
+  });
+}
+
+// Siembra datos demo si la base está vacía
+async function ensureSeed() {
   try {
     const n = await prisma.formador.count();
     if (n === 0) await sembrar();
   } catch (e) {
     console.warn("No se pudo verificar/sembrar la base:", e.message);
   }
+}
+
+// Abrimos el puerto PRIMERO (para que el healthcheck pase al instante) y
+// preparamos la base en segundo plano. Evita que un db push lento cuelgue el deploy.
+function inicio() {
   const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () => console.log(`RETONS Seguimiento API en puerto ${PORT}`));
+  app.listen(PORT, "0.0.0.0", async () => {
+    console.log(`RETONS Seguimiento API en puerto ${PORT}`);
+    await pushDB();
+    await ensureSeed();
+    console.log("Base de datos lista.");
+  });
 }
 
 inicio();
