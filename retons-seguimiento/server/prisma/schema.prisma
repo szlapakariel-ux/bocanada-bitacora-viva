@@ -1,0 +1,110 @@
+// RETONS Seguimiento — modelo de datos
+// SQLite en desarrollo. Para producción (Railway) cambiar provider a "postgresql".
+// Los campos JSON se guardan como String para ser portables entre SQLite y Postgres.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ── Tenant: cada formador ve solo sus datos ──────────────────────────────
+model Formador {
+  id           String   @id @default(cuid())
+  nombre       String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  recursos  Recurso[]
+  programas Programa[]
+}
+
+// ── Biblioteca de recursos (reutilizables y repetibles) ──────────────────
+model Recurso {
+  id          String   @id @default(cuid())
+  formador    Formador @relation(fields: [formadorId], references: [id], onDelete: Cascade)
+  formadorId  String
+  // tipo: video | audio | meditacion | lectura | imagen |
+  //       reflexion | voz | checklist | selector_foco | escala | formulario |
+  //       quiz | flashcards | clasificar | reto | compromiso
+  tipo        String
+  titulo      String
+  descripcion String?
+  config      String   @default("{}") // JSON con la configuración del bloque
+  createdAt   DateTime @default(now())
+
+  bloques BloqueDia[]
+}
+
+// ── Programa = recorrido de N días (default 6) ───────────────────────────
+model Programa {
+  id           String   @id @default(cuid())
+  formador     Formador @relation(fields: [formadorId], references: [id], onDelete: Cascade)
+  formadorId   String
+  nombre       String
+  descripcion  String?
+  codigoAcceso String   @unique
+  duracionDias Int      @default(6)
+  multiPorDia  Boolean  @default(false) // PREMIUM: permite >1 recurso por día
+  fraseAncla   String   @default("Somos lo que hacemos repetidamente")
+  activo       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  dias          DiaPrograma[]
+  participantes Participante[]
+}
+
+model DiaPrograma {
+  id         String   @id @default(cuid())
+  programa   Programa @relation(fields: [programaId], references: [id], onDelete: Cascade)
+  programaId String
+  numero     Int
+  titulo     String?
+
+  bloques BloqueDia[]
+
+  @@unique([programaId, numero])
+}
+
+// ── Un recurso asignado a un día (la relación permite N por día) ──────────
+model BloqueDia {
+  id        String      @id @default(cuid())
+  dia       DiaPrograma @relation(fields: [diaId], references: [id], onDelete: Cascade)
+  diaId     String
+  recurso   Recurso     @relation(fields: [recursoId], references: [id], onDelete: Cascade)
+  recursoId String
+  orden     Int         @default(0)
+
+  respuestas Respuesta[]
+}
+
+model Participante {
+  id         String   @id @default(cuid())
+  programa   Programa @relation(fields: [programaId], references: [id], onDelete: Cascade)
+  programaId String
+  nombre     String
+  clave      String
+  createdAt  DateTime @default(now())
+
+  respuestas Respuesta[]
+
+  @@unique([programaId, clave])
+}
+
+// ── Señal: respuesta del participante a un bloque ────────────────────────
+model Respuesta {
+  id             String       @id @default(cuid())
+  participante   Participante @relation(fields: [participanteId], references: [id], onDelete: Cascade)
+  participanteId String
+  bloque         BloqueDia    @relation(fields: [bloqueId], references: [id], onDelete: Cascade)
+  bloqueId       String
+  payload        String       @default("{}") // JSON con la respuesta
+  completado     Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+
+  @@unique([participanteId, bloqueId])
+}
