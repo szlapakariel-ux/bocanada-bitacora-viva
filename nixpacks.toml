@@ -1,0 +1,26 @@
+# Railway / Nixpacks — config a nivel raíz del repo.
+#
+# La app que se deploya es "Bitácora Viva", que vive en retons-seguimiento/.
+# Esta config hace que, aunque el servicio NO tenga seteado Root Directory,
+# Railway compile y arranque la app correcta (no el demo Bocanada de la raíz).
+#
+# Lo ideal sigue siendo setear Root Directory = retons-seguimiento en el servicio;
+# esto funciona como red de seguridad. No afecta el uso local de Bocanada
+# (Nixpacks solo se usa en los builds de Railway).
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = [
+  "cd retons-seguimiento/client && npm install",
+  "cd retons-seguimiento/server && npm install",
+]
+
+[phases.build]
+cmds = [
+  "cd retons-seguimiento/client && npm run build",
+]
+
+[start]
+cmd = "cd retons-seguimiento/server && npm run start:prod"

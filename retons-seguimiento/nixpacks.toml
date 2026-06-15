@@ -1,5 +1,7 @@
-# Configuración de build para Railway (Nixpacks).
+# Configuración de build para Railway (Nixpacks) cuando Root Directory = retons-seguimiento.
 # Un solo servicio: compila el cliente React y arranca el server Express que lo sirve.
+# El `prisma db push` corre en el ARRANQUE (start:prod), porque el volumen /data
+# recién se monta en runtime, no durante el build.
 
 [phases.setup]
 nixPkgs = ["nodejs_20"]
@@ -13,8 +15,7 @@ cmds = [
 [phases.build]
 cmds = [
   "cd client && npm run build",
-  "cd server && npm run db:deploy",
 ]
 
 [start]
-cmd = "cd server && npm start"
+cmd = "cd server && npm run start:prod"
