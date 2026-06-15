@@ -64,21 +64,45 @@ router.get("/:id", async (req, res) => {
   res.json({ programa });
 });
 
+// Campos editables del programa (incluye marca y briefing)
+const CAMPOS_PROGRAMA = [
+  "nombre", "descripcion", "fraseAncla", "multiPorDia", "activo",
+  "logoData", "colorPrimario", "colorSecundario", "colorAcento", "tipografia", "manualNotas",
+  "publicoObjetivo", "tono", "objetivoGeneral", "briefing",
+];
+
 router.put("/:id", async (req, res) => {
   const actual = await propio(req.params.id, req.formadorId);
   if (!actual) return res.status(404).json({ error: "No encontrado" });
-  const { nombre, descripcion, fraseAncla, multiPorDia, activo } = req.body || {};
-  const programa = await prisma.programa.update({
-    where: { id: actual.id },
+
+  const data = {};
+  for (const c of CAMPOS_PROGRAMA)
+    if (req.body && c in req.body) data[c] = req.body[c];
+
+  const programa = await prisma.programa.update({ where: { id: actual.id }, data });
+  res.json({ programa });
+});
+
+// Definir el día: nombre, tema a tratar e intención (qué se quiere transmitir)
+router.put("/:id/dias/:numero", async (req, res) => {
+  const programa = await propio(req.params.id, req.formadorId);
+  if (!programa) return res.status(404).json({ error: "No encontrado" });
+
+  const dia = await prisma.diaPrograma.findFirst({
+    where: { programaId: programa.id, numero: parseInt(req.params.numero) },
+  });
+  if (!dia) return res.status(404).json({ error: "Día inexistente" });
+
+  const { titulo, tema, intencion } = req.body || {};
+  const actualizado = await prisma.diaPrograma.update({
+    where: { id: dia.id },
     data: {
-      nombre: nombre ?? actual.nombre,
-      descripcion: descripcion ?? actual.descripcion,
-      fraseAncla: fraseAncla ?? actual.fraseAncla,
-      multiPorDia: multiPorDia ?? actual.multiPorDia,
-      activo: activo ?? actual.activo,
+      titulo: titulo ?? dia.titulo,
+      tema: tema ?? dia.tema,
+      intencion: intencion ?? dia.intencion,
     },
   });
-  res.json({ programa });
+  res.json({ dia: actualizado });
 });
 
 // Asignar un recurso a un día

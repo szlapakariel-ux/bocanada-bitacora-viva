@@ -5,6 +5,15 @@ import { prisma, parseJSON, stringifyJSON } from "../db.js";
 const router = Router();
 const claveAuto = customAlphabet("0123456789", 4);
 
+// Marca del programa para vestir el recorrido del participante
+const marcaDe = (p) => ({
+  logoData: p.logoData || null,
+  colorPrimario: p.colorPrimario || null,
+  colorSecundario: p.colorSecundario || null,
+  colorAcento: p.colorAcento || null,
+  tipografia: p.tipografia || null,
+});
+
 // Ingreso: código del programa + nombre + clave personal
 router.post("/join", async (req, res) => {
   const { codigo, nombre, clave } = req.body || {};
@@ -34,6 +43,7 @@ router.post("/join", async (req, res) => {
       nombre: programa.nombre,
       fraseAncla: programa.fraseAncla,
       duracionDias: programa.duracionDias,
+      marca: marcaDe(programa),
     },
   });
 });
@@ -60,6 +70,7 @@ router.get("/:participanteId/progreso", async (req, res) => {
       return {
         numero: d.numero,
         titulo: d.titulo,
+        tema: d.tema,
         total,
         completos,
         completo: total > 0 && completos >= total,
@@ -68,7 +79,11 @@ router.get("/:participanteId/progreso", async (req, res) => {
     });
 
   res.json({
-    programa: { nombre: participante.programa.nombre, fraseAncla: participante.programa.fraseAncla },
+    programa: {
+      nombre: participante.programa.nombre,
+      fraseAncla: participante.programa.fraseAncla,
+      marca: marcaDe(participante.programa),
+    },
     dias,
   });
 });
@@ -100,6 +115,7 @@ router.get("/:participanteId/dia/:numero", async (req, res) => {
     dia: {
       numero: dia.numero,
       titulo: dia.titulo,
+      tema: dia.tema,
       bloques: dia.bloques.map((b) => ({
         id: b.id,
         tipo: b.recurso.tipo,

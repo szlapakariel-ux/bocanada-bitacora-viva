@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api.js";
+import { aplicarMarca } from "../marca.js";
 
 const part = () => JSON.parse(localStorage.getItem("retons_part") || "null");
 
@@ -11,10 +12,14 @@ export default function Viaje() {
 
   useEffect(() => {
     if (!p) return nav("/entrar");
-    api.get(`/part/${p.id}/progreso`).then(setData).catch(() => nav("/entrar"));
+    api
+      .get(`/part/${p.id}/progreso`)
+      .then((d) => { aplicarMarca(d.programa.marca); setData(d); })
+      .catch(() => nav("/entrar"));
   }, []);
 
   if (!data) return <div className="app center-screen pad muted">Cargando…</div>;
+  const marca = data.programa.marca || {};
 
   const hechos = data.dias.filter((d) => d.completo).length;
   const conContenido = data.dias.filter((d) => !d.vacio);
@@ -22,9 +27,13 @@ export default function Viaje() {
   return (
     <div className="app">
       <div className="topbar">
-        <Link to="/" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
-          RETO<b>N</b>S
-        </Link>
+        {marca.logoData ? (
+          <img src={marca.logoData} alt="logo" style={{ height: 28, maxWidth: 140, objectFit: "contain" }} />
+        ) : (
+          <Link to="/" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
+            RETO<b>N</b>S
+          </Link>
+        )}
         <span className="pill">{hechos}/{conContenido.length} días</span>
       </div>
 
@@ -67,9 +76,9 @@ export default function Viaje() {
                     {d.completo ? "✓" : d.numero}
                   </span>
                   <div>
-                    <strong>Día {d.numero}</strong>
+                    <strong>{d.tema || `Día ${d.numero}`}</strong>
                     <div className="muted" style={{ fontSize: 13 }}>
-                      {bloqueado ? "Próximamente" : d.completo ? "Completado" : "Tocá para empezar"}
+                      Día {d.numero} · {bloqueado ? "Próximamente" : d.completo ? "Completado" : "Tocá para empezar"}
                     </div>
                   </div>
                 </div>

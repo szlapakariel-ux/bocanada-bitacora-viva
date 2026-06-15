@@ -107,7 +107,27 @@ async function main() {
       duracionDias: 6,
       multiPorDia: false,
       fraseAncla: "Somos lo que hacemos repetidamente",
-      dias: { create: Array.from({ length: 6 }, (_, i) => ({ numero: i + 1 })) },
+      // Marca de ejemplo (editable desde el constructor)
+      colorPrimario: "#1B56D6",
+      colorSecundario: "#1A7A3C",
+      colorAcento: "#D63030",
+      tipografia: "Nunito Sans",
+      manualNotas: "Estética 'pausa en medio del caos': limpio, minimalista, mucho espacio en blanco.",
+      // Briefing de ejemplo (alimenta a los futuros agentes IA)
+      publicoObjetivo: "Mandos medios en formación de liderazgo.",
+      tono: "Directo, humano, intelectual, sin rodeos, en primera persona.",
+      objetivoGeneral: "Sostener la capacitación entre encuentros con micro-interacciones diarias.",
+      briefing: "Queremos transmitir que el liderazgo se construye con hábitos pequeños y repetidos.",
+      dias: {
+        create: [
+          { numero: 1, titulo: "Anclaje", tema: "El poder de lo repetido", intencion: "Instalar la frase eje del programa." },
+          { numero: 2, titulo: "La huella de hoy", tema: "Fórmula del Resultado", intencion: "Bajar a tierra una situación real del día." },
+          { numero: 3, titulo: "Filtro de comunicación", tema: "Hábitos mínimos del lenguaje", intencion: "Tomar conciencia de las palabras limitantes." },
+          { numero: 4, titulo: "Foco de gestión", tema: "¿Dónde pongo mi energía?", intencion: "Detectar el patrón de foco del equipo." },
+          { numero: 5, titulo: "Pausa", tema: "Respiración y registro", intencion: "Crear una pausa en medio del caos." },
+          { numero: 6, titulo: "Cierre", tema: "Compromiso hacia adelante", intencion: "Proyectar una intención de implementación." },
+        ],
+      },
     },
     include: { dias: true },
   });

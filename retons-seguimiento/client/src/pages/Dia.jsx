@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api.js";
+import { aplicarMarca } from "../marca.js";
 import Bloque from "../components/Bloque.jsx";
 
 const part = () => JSON.parse(localStorage.getItem("retons_part") || "null");
@@ -13,6 +14,7 @@ export default function Dia() {
 
   useEffect(() => {
     if (!p) return nav("/entrar");
+    aplicarMarca(p.programa?.marca);
     api.get(`/part/${p.id}/dia/${numero}`).then((d) => setDia(d.dia)).catch(() => nav("/viaje"));
   }, [numero]);
 
@@ -29,7 +31,7 @@ export default function Dia() {
       </div>
 
       <div className="pad grow">
-        <p className="eyebrow">La estación de hoy</p>
+        <p className="eyebrow">{dia.tema || "La estación de hoy"}</p>
         <h1 style={{ marginBottom: 24 }}>{dia.titulo || `Día ${dia.numero}`}</h1>
 
         {dia.bloques.length === 0 && (

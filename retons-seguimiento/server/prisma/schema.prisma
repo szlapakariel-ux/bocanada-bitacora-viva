@@ -54,6 +54,20 @@ model Programa {
   activo       Boolean  @default(true)
   createdAt    DateTime @default(now())
 
+  // ── Manual de marca mínimo (personalización por cliente) ──
+  logoData        String? // logo en data URL (base64)
+  colorPrimario   String? // ej #1B56D6
+  colorSecundario String?
+  colorAcento     String?
+  tipografia      String? // nombre de la familia tipográfica
+  manualNotas     String? // notas / link al manual de marca del cliente
+
+  // ── Briefing del cliente (alimenta a los futuros agentes IA) ──
+  publicoObjetivo String?
+  tono            String?
+  objetivoGeneral String?
+  briefing        String? // qué se quiere transmitir, contexto, definiciones
+
   dias          DiaPrograma[]
   participantes Participante[]
 }
@@ -63,7 +77,9 @@ model DiaPrograma {
   programa   Programa @relation(fields: [programaId], references: [id], onDelete: Cascade)
   programaId String
   numero     Int
-  titulo     String?
+  titulo     String? // nombre corto del día
+  tema       String? // el tema a tratar ese día
+  intencion  String? // qué se quiere transmitir / objetivo del día
 
   bloques BloqueDia[]
 
