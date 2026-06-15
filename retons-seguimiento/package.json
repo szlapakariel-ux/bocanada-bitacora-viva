@@ -1,0 +1,12 @@
+{
+  "name": "retons-seguimiento",
+  "private": true,
+  "description": "Orquestador de build/deploy (Railway): compila el cliente y arranca el server que lo sirve.",
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ../server && npm install && npm run db:deploy",
+    "start": "cd server && npm start"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

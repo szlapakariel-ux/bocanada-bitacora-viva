@@ -1,9 +1,10 @@
+import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { prisma, stringifyJSON } from "../src/db.js";
 
 const S = stringifyJSON;
 
-async function main() {
+export async function sembrar() {
   console.log("Sembrando datos demo…");
 
   // Limpieza (orden por dependencias)
@@ -178,9 +179,12 @@ async function main() {
   console.log("  Participante: código LIDER1, nombre libre, clave 1000");
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(() => prisma.$disconnect());
+// Ejecución directa por CLI (npm run db:seed)
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  sembrar()
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(() => prisma.$disconnect());
+}

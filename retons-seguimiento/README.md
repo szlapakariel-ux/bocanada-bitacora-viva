@@ -88,11 +88,11 @@ retons-seguimiento/
 
 ## Deploy en Railway (producción)
 
-1. Cambiar el `provider` de `server/prisma/schema.prisma` a `postgresql`.
-2. Crear un servicio PostgreSQL en Railway y setear `DATABASE_URL`.
-3. Setear `JWT_SECRET`.
-4. Build del cliente (`cd client && npm run build`) y arrancar el server
-   (`cd server && npm start`) — el server sirve `client/dist`.
+Guía completa paso a paso en **[DEPLOY-RAILWAY.md](./DEPLOY-RAILWAY.md)**.
+
+Resumen: un solo servicio (el server sirve la app compilada), SQLite sobre un
+volumen persistente en `/data`, y siembra automática de datos demo en el primer
+arranque. Variables: `DATABASE_URL=file:/data/prod.db` y `JWT_SECRET`.
 
 ---
 

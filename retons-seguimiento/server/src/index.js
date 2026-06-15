@@ -3,6 +3,8 @@ import cors from "cors";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { prisma } from "./db.js";
+import { sembrar } from "../prisma/seed.js";
 import authRoutes from "./routes/auth.js";
 import recursosRoutes from "./routes/recursos.js";
 import programasRoutes from "./routes/programas.js";
@@ -30,5 +32,16 @@ const clientDist = path.resolve(__dirname, "../../client/dist");
 app.use(express.static(clientDist));
 app.get("*", (_req, res) => res.sendFile(path.join(clientDist, "index.html")));
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`RETONS Seguimiento API en http://localhost:${PORT}`));
+// Siembra automática de datos demo si la base está vacía (útil en el deploy)
+async function inicio() {
+  try {
+    const n = await prisma.formador.count();
+    if (n === 0) await sembrar();
+  } catch (e) {
+    console.warn("No se pudo verificar/sembrar la base:", e.message);
+  }
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => console.log(`RETONS Seguimiento API en puerto ${PORT}`));
+}
+
+inicio();

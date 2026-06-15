@@ -1,0 +1,20 @@
+# Configuración de build para Railway (Nixpacks).
+# Un solo servicio: compila el cliente React y arranca el server Express que lo sirve.
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = [
+  "cd client && npm install",
+  "cd server && npm install",
+]
+
+[phases.build]
+cmds = [
+  "cd client && npm run build",
+  "cd server && npm run db:deploy",
+]
+
+[start]
+cmd = "cd server && npm start"
