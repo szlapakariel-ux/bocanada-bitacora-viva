@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { api, clearToken } from "../api.js";
+import { api, clearToken, getRol } from "../api.js";
 
 export default function Formador() {
   const nav = useNavigate();
@@ -23,7 +23,12 @@ export default function Formador() {
     <div className="app app-wide">
       <div className="topbar">
         <span className="brand">Bitácora <b>Viva</b> · Formador</span>
-        <button className="btn btn-sm btn-ghost" style={{ width: "auto" }} onClick={salir}>Salir</button>
+        <div className="row" style={{ gap: 8 }}>
+          {getRol() === "owner" && (
+            <Link to="/admin" className="btn btn-sm btn-ghost" style={{ width: "auto" }}>👑 Clientes</Link>
+          )}
+          <button className="btn btn-sm btn-ghost" style={{ width: "auto" }} onClick={salir}>Salir</button>
+        </div>
       </div>
 
       <div className="pad grow">

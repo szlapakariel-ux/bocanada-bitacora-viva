@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { api, setToken } from "../api.js";
+import { api, setToken, setRol } from "../api.js";
 
 export default function FormadorLogin() {
   const nav = useNavigate();
@@ -16,9 +16,10 @@ export default function FormadorLogin() {
     setError("");
     setCargando(true);
     try {
-      const { token } = await api.post(`/auth/${modo === "login" ? "login" : "register"}`, form);
+      const { token, formador } = await api.post(`/auth/${modo === "login" ? "login" : "register"}`, form);
       setToken(token);
-      nav("/formador");
+      setRol(formador?.rol);
+      nav(formador?.rol === "owner" ? "/admin" : "/formador");
     } catch (err) {
       setError(err.message);
     } finally {

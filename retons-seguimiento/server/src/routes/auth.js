@@ -17,27 +17,31 @@ router.post("/register", async (req, res) => {
   const formador = await prisma.formador.create({
     data: { nombre, email, passwordHash },
   });
-  res.json({ token: firmarToken(formador), formador: { id: formador.id, nombre, email } });
+  res.json({
+    token: firmarToken(formador),
+    formador: { id: formador.id, nombre, email, rol: formador.rol },
+  });
 });
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body || {};
   const formador = await prisma.formador.findUnique({ where: { email } });
   if (!formador) return res.status(401).json({ error: "Credenciales inválidas" });
+  if (!formador.activo) return res.status(403).json({ error: "Cuenta deshabilitada" });
 
   const ok = await bcrypt.compare(password, formador.passwordHash);
   if (!ok) return res.status(401).json({ error: "Credenciales inválidas" });
 
   res.json({
     token: firmarToken(formador),
-    formador: { id: formador.id, nombre: formador.nombre, email: formador.email },
+    formador: { id: formador.id, nombre: formador.nombre, email: formador.email, rol: formador.rol },
   });
 });
 
 router.get("/me", requireFormador, async (req, res) => {
   const formador = await prisma.formador.findUnique({
     where: { id: req.formadorId },
-    select: { id: true, nombre: true, email: true },
+    select: { id: true, nombre: true, email: true, rol: true },
   });
   res.json({ formador });
 });

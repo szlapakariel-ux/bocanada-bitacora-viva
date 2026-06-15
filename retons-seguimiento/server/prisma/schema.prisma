@@ -17,6 +17,8 @@ model Formador {
   nombre       String
   email        String   @unique
   passwordHash String
+  rol          String   @default("formador") // "owner" (dueño) | "formador" (cliente)
+  activo       Boolean  @default(true)
   createdAt    DateTime @default(now())
 
   recursos  Recurso[]

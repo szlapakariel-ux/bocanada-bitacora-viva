@@ -1,9 +1,15 @@
 // Cliente HTTP minimalista para la API de Bitácora Viva.
 
 const tokenKey = "retons_token";
+const rolKey = "retons_rol";
 export const getToken = () => localStorage.getItem(tokenKey);
 export const setToken = (t) => localStorage.setItem(tokenKey, t);
-export const clearToken = () => localStorage.removeItem(tokenKey);
+export const getRol = () => localStorage.getItem(rolKey) || "formador";
+export const setRol = (r) => localStorage.setItem(rolKey, r || "formador");
+export const clearToken = () => {
+  localStorage.removeItem(tokenKey);
+  localStorage.removeItem(rolKey);
+};
 
 async function req(method, url, body) {
   const headers = { "Content-Type": "application/json" };

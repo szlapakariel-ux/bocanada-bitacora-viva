@@ -16,12 +16,23 @@ export async function sembrar() {
   await prisma.recurso.deleteMany();
   await prisma.formador.deleteMany();
 
+  // Dueño de la plataforma (rol owner): da de alta clientes
+  await prisma.formador.create({
+    data: {
+      nombre: "Dueño Bitácora Viva",
+      email: "dueno@bitacoraviva.app",
+      passwordHash: await bcrypt.hash("admin1234", 10),
+      rol: "owner",
+    },
+  });
+
   // Cliente demo de la plataforma (RETONS es un cliente, no la plataforma)
   const formador = await prisma.formador.create({
     data: {
       nombre: "RETONS (cliente demo)",
       email: "demo@retons.com",
       passwordHash: await bcrypt.hash("demo1234", 10),
+      rol: "formador",
     },
   });
 
@@ -176,7 +187,8 @@ export async function sembrar() {
   }
 
   console.log("✔ Listo.");
-  console.log("  Formador: demo@retons.com / demo1234");
+  console.log("  Dueño:       dueno@bitacoraviva.app / admin1234");
+  console.log("  Cliente:     demo@retons.com / demo1234");
   console.log("  Participante: código LIDER1, nombre libre, clave 1000");
 }
 

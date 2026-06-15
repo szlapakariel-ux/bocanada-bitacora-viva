@@ -11,6 +11,7 @@ import programasRoutes from "./routes/programas.js";
 import participanteRoutes from "./routes/participante.js";
 import panelRoutes from "./routes/panel.js";
 import iaRoutes from "./routes/ia.js";
+import adminRoutes from "./routes/admin.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/programas", programasRoutes);
 app.use("/api/part", participanteRoutes);
 app.use("/api/panel", panelRoutes);
 app.use("/api/ia", iaRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Servir el cliente compilado en producción
 const clientDist = path.resolve(__dirname, "../../client/dist");

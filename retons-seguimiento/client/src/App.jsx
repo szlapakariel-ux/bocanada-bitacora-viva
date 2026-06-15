@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { getToken } from "./api.js";
+import { getToken, getRol } from "./api.js";
+
+import Admin from "./pages/Admin.jsx";
 
 import Home from "./pages/Home.jsx";
 import Entrar from "./pages/Entrar.jsx";
@@ -14,6 +16,11 @@ import Panel from "./pages/Panel.jsx";
 const Privada = ({ children }) =>
   getToken() ? children : <Navigate to="/formador/login" replace />;
 
+const SoloDueno = ({ children }) =>
+  !getToken() ? <Navigate to="/formador/login" replace />
+    : getRol() === "owner" ? children
+    : <Navigate to="/formador" replace />;
+
 export default function App() {
   return (
     <Routes>
@@ -23,6 +30,7 @@ export default function App() {
       <Route path="/dia/:numero" element={<Dia />} />
 
       <Route path="/formador/login" element={<FormadorLogin />} />
+      <Route path="/admin" element={<SoloDueno><Admin /></SoloDueno>} />
       <Route path="/formador" element={<Privada><Formador /></Privada>} />
       <Route path="/formador/biblioteca" element={<Privada><Biblioteca /></Privada>} />
       <Route path="/formador/programa/:id" element={<Privada><Programa /></Privada>} />
